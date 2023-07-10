@@ -1,0 +1,5 @@
+{
+  "awsRegion": "eu-central-1",
+  "dynamoDBMatchDataTable" : "match-data",
+  "dynamoDBStatsDataTable": "stats-data"
+}

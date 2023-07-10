@@ -1,0 +1,19 @@
+pipelines:
+  default:
+    - step:
+        name: Build
+        script:
+          - npm install
+          - npm run build
+    - step:
+        name: Deploy
+        script:
+          - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+          - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+          - |
+            if [[ $BITBUCKET_BRANCH == "development" ]]; then
+              npx cdk synth
+              npx cdk deploy --require-approval never
+            else
+              echo "Skipping deployment on branch $BITBUCKET_BRANCH"
+            fi
